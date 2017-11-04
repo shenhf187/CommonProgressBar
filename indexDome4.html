@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>进度条Demo5--利用所有图片的加载进度实现进度条</title>
+	<style>
+		html,body,div,img,span,b{
+			margin:0;
+			padding:0;
+		}
+		html,body{
+			height:100%;
+		}
+		#loading{
+			width:100%;
+			height: 100%;
+			position: fixed;
+			top:0;
+			left: 0;
+			z-index: 999;
+			background:#fff;
+		}
+		.pic{
+			width:100px;
+			height: 100px;
+			text-align:center;
+			line-height:100px;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin:auto;
+			font-size: 24px;
+
+		}
+		.pic span{
+			display: block;
+			width:80px;
+			height: 80px;
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			border-radius:50%;
+			box-shadow:0 3px 0 #566;
+			animation:rotate 1s infinite linear;
+		}
+		.pic b{
+			font-weight: 500;
+		}
+		@keyframes rotate{
+			0%{transform: rotate(0deg);}
+			100%{transform: rotate(360deg);}
+		}
+	</style>
+	<script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+</head>
+<body>
+	<div id="loading">
+		<p class="pic">
+			<span></span>
+			<b>0%</b>
+		</p>
+	</div>
+	<div>
+		<img src="http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg" alt="">
+		<img src="http://img5.imgtn.bdimg.com/it/u=49366202,632101467&fm=27&gp=0.jpg" alt="">
+		<img src="http://img4.imgtn.bdimg.com/it/u=724439046,647125257&fm=214&gp=0.jpg" alt="">
+		<img src="http://img3.imgtn.bdimg.com/it/u=817720483,3831863505&fm=214&gp=0.jpg" alt="">
+		<img src="http://img0.imgtn.bdimg.com/it/u=1046983545,2051560208&fm=214&gp=0.jpg" alt="">
+		<img src="http://f12.baidu.com/it/u=4095530189,4280642225&fm=72" alt="">
+		<img src="http://f12.baidu.com/it/u=3474914603,1762884949&fm=72" alt="">
+		<img src="http://f11.baidu.com/it/u=3605841858,418691879&fm=72" alt="">
+		<img src="http://img3.imgtn.bdimg.com/it/u=3216737856,1537685557&fm=27&gp=0.jpg" alt="">
+		<img src="http://img0.imgtn.bdimg.com/it/u=1046983545,2051560208&fm=214&gp=0.jpg" alt="">
+		<img src="http://img3.imgtn.bdimg.com/it/u=924156946,2185209209&fm=27&gp=0.jpg" alt="">
+	</div>
+	<script>
+		$(function(){
+			var img = $('img'),
+				num = 0;
+			img.each(function(i){
+				var oImg = new Image();
+					
+				oImg.onload = function(){
+					oImg.onload = null;
+					num++;
+					$('#loading b').html(parseInt(num/$('img').size()*100) + '%');
+					if(num >= i){
+						$('#loading').fadeOut();
+					}
+				}
+				oImg.src = img[i].src;
+			});
+			
+		})
+	</script>
+	
+</body>
+</html>
